@@ -5,11 +5,7 @@ import Image from "next/image";
 import { StarIcon } from "lucide-react";
 import DeliveryInfo from "@/app/_components/delivery-info";
 import ProductList from "@/app/_components/product-list";
-// import DeliveryInfo from "@/app/_components/delivery-info";
-// import ProductList from "@/app/_components/product-list";
-// import CartBanner from "./_components/cart-banner";
-// import { getServerSession } from "next-auth";
-// import { authOptions } from "@/app/_lib/auth";
+import CartBanner from "./_components/cart-banner";
 
 interface RestaurantPageProps {
   params: {
@@ -123,7 +119,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
         </div>
       ))}
 
-      {/* <CartBanner restaurant={restaurant} /> */}
+      <CartBanner restaurant={restaurant} />
     </div>
   );
 };
