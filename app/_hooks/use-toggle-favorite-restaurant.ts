@@ -1,7 +1,7 @@
-import { toast } from "sonner";
-import { toggleFavoriteRestaurant } from "../_actions/restaurant";
 import { UserFavoriteRestaurant } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { toggleFavoriteRestaurant } from "../_actions/restaurant";
 
 interface UseToggleFavoriteRestaurantProps {
   userId?: string;
