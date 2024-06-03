@@ -36,6 +36,7 @@ const Header = () => {
             src="/logo.png"
             alt="FSW Foods"
             fill
+            sizes="100%"
             className="object-cover"
           />
         </div>
