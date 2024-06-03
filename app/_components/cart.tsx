@@ -82,7 +82,6 @@ const Cart = ({ setIsOpen }: CartProps) => {
     } catch (error) {
       console.error(error);
     } finally {
-      console.log("ACABOUU");
       setIsSubmitLoading(false);
     }
   };
