@@ -15,8 +15,9 @@ const CategoryItem = ({ category }: CategoryItemProps) => {
       <Image
         src={category.imageUrl}
         alt={category.name}
-        height={30}
+        height={25}
         width={30}
+        style={{ width: "30px", height: "25px" }}
       />
 
       <span className="text-sm font-semibold">{category.name}</span>

@@ -29,7 +29,6 @@ const RestaurantItem = ({
 
   const handleFavoriteClick = async () => {
     if (!data?.user.id) return;
-
     try {
       await toggleFavoriteRestaurant(data?.user.id, restaurant.id);
       toast.success(
@@ -47,7 +46,10 @@ const RestaurantItem = ({
       <div className="w-full space-y-3">
         {/* IMAGEM */}
         <div className="relative h-[136px] w-full">
-          <Link href={`/restaurants/${restaurant.id}`}>
+          <Link
+            className="relative block h-full"
+            href={`/restaurants/${restaurant.id}`}
+          >
             <Image
               src={restaurant.imageUrl}
               fill
