@@ -39,8 +39,6 @@ const Cart = ({ setIsOpen }: CartProps) => {
     useContext(CartContext);
 
   const handleFinishOrderClick = async () => {
-    if (!data?.user) return;
-
     const restaurant = products[0].restaurant;
 
     try {
@@ -57,7 +55,7 @@ const Cart = ({ setIsOpen }: CartProps) => {
         },
         status: OrderStatus.CONFIRMED,
         user: {
-          connect: { id: data.user.id },
+          connect: { id: data!.user.id },
         },
         products: {
           createMany: {
@@ -158,21 +156,35 @@ const Cart = ({ setIsOpen }: CartProps) => {
         open={isConfirmDialogOpen}
         onOpenChange={setIsConfirmDialogOpen}
       >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Deseja finalizar seu pedido?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Ao finalizar seu pedido, você concorda com os termos e condições
-              da nossa plataforma.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={handleFinishOrderClick}>
-              Finalizar
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
+        {data?.user ? (
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Deseja finalizar seu pedido?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Ao finalizar seu pedido, você concorda com os termos e condições
+                da nossa plataforma.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+              <AlertDialogAction onClick={handleFinishOrderClick}>
+                Finalizar
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        ) : (
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Você não está autenticado!</AlertDialogTitle>
+              <AlertDialogDescription>
+                Faça seu login e tente novamente
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Sair</AlertDialogCancel>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        )}
       </AlertDialog>
     </>
   );
