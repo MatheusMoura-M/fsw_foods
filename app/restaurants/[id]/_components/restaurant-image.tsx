@@ -53,13 +53,15 @@ const RestaurantImage = ({
         <ChevronLeftIcon />
       </Button>
 
-      <Button
-        size="icon"
-        className={`absolute right-4 top-4 rounded-full bg-gray-700 ${isFavorite && "bg-primary hover:bg-gray-700"}`}
-        onClick={handleFavoriteClick}
-      >
-        <HeartIcon size={20} className="fill-white" />
-      </Button>
+      {data?.user && (
+        <Button
+          size="icon"
+          className={`absolute right-4 top-4 rounded-full bg-gray-700 ${isFavorite && "bg-primary hover:bg-gray-700"}`}
+          onClick={handleFavoriteClick}
+        >
+          <HeartIcon size={20} className="fill-white" />
+        </Button>
+      )}
     </div>
   );
 };

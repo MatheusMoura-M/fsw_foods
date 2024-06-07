@@ -11,17 +11,19 @@ import {
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./ui/sheet";
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const pathname = usePathname();
   const { data } = useSession();
 
   const handleSignOutClick = () => signOut();
@@ -41,16 +43,17 @@ const Header = () => {
         </div>
       </Link>
 
-      <Button
-        size="icon"
-        variant="outline"
-        className="border-none bg-transparent"
-        onClick={() => setIsMenuOpen(true)}
-      >
-        <MenuIcon />
-      </Button>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button
+            size="icon"
+            variant="outline"
+            className="border-none bg-transparent"
+          >
+            <MenuIcon />
+          </Button>
+        </SheetTrigger>
 
-      <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
         <SheetContent>
           <SheetHeader>
             <SheetTitle className="text-left">Menu</SheetTitle>
@@ -95,54 +98,46 @@ const Header = () => {
           </div>
 
           <div className="space-y-2">
-            <Button
-              variant="ghost"
-              className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
-              asChild
-            >
-              <Link
-                href="/"
-                onClick={() => pathname === "/" && setIsMenuOpen(false)}
+            <SheetClose asChild>
+              <Button
+                variant="ghost"
+                className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
+                asChild
               >
-                <HomeIcon size={16} />
-                <span className="block">Início</span>
-              </Link>
-            </Button>
+                <Link href="/">
+                  <HomeIcon size={16} />
+                  <span className="block">Início</span>
+                </Link>
+              </Button>
+            </SheetClose>
 
             {data?.user && (
               <>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
-                  asChild
-                >
-                  <Link
-                    href="/my-orders"
-                    onClick={() =>
-                      pathname === "/my-orders" && setIsMenuOpen(false)
-                    }
+                <SheetClose asChild>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
+                    asChild
                   >
-                    <ScrollTextIcon size={16} />
-                    <span className="block">Meus Pedidos</span>
-                  </Link>
-                </Button>
+                    <Link href="/my-orders">
+                      <ScrollTextIcon size={16} />
+                      <span className="block">Meus Pedidos</span>
+                    </Link>
+                  </Button>
+                </SheetClose>
 
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
-                  asChild
-                >
-                  <Link
-                    href="/my-favorite-restaurants"
-                    onClick={() =>
-                      pathname === "/my-favorite-restaurants" &&
-                      setIsMenuOpen(false)
-                    }
+                <SheetClose asChild>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
+                    asChild
                   >
-                    <HeartIcon size={16} />
-                    <span className="block">Restaurantes Favoritos</span>
-                  </Link>
-                </Button>
+                    <Link href="/my-favorite-restaurants">
+                      <HeartIcon size={16} />
+                      <span className="block">Restaurantes Favoritos</span>
+                    </Link>
+                  </Button>
+                </SheetClose>
               </>
             )}
           </div>
